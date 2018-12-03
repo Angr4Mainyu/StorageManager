@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="../css/font.css">
+    <link rel="stylesheet" href="../css/xadmin.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../js/xadmin.js"></script>
+</head>
+
+<body>
+    <div class="x-body">
+        <form class="layui-form layui-form-pane" action="">
+            <div class="layui-form-item">
+                <label class="layui-form-label">订单号</label>
+                <div class="layui-input-block">
+                    <input type="text" name="iid" required lay-verify="required" autocomplete="off" class="layui-input"
+                        id="edit-iid" placeholder="请输入唯一的订单号">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span class="x-red">*</span>货物名</label>
+                <div class="layui-input-block">
+                    <input type="text" name="name" required lay-verify="required" autocomplete="off" class="layui-input"
+                        id="edit-name" placeholder="请输入货物名称">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span class="x-red">*</span>ID</label>
+                <div class="layui-input-block">
+                    <input type="text" name="id" required lay-verify="required" autocomplete="off" class="layui-input"
+                        id="edit-id" placeholder="请输入货物ID">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span class="x-red">*</span>单价</label>
+                <div class="layui-input-block">
+                    <input type="text" name="price" required lay-verify="required" autocomplete="off" class="layui-input"
+                        id="edit-price" placeholder="请输入货物单价">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span class="x-red">*</span>数量</label>
+                <div class="layui-input-block">
+                    <input type="text" name="count" required lay-verify="required" autocomplete="off" class="layui-input"
+                        id="edit-count" placeholder="请输入货物总数量">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span class="x-red">*</span>总价</label>
+                <div class="layui-input-block">
+                    <input type="text" name="total" required lay-verify="required" autocomplete="off" class="layui-input"
+                        id="edit-total" placeholder="请输入货物总额">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span class="x-red">*</span>经手人</label>
+                <div class="layui-input-block">
+                    <input type="text" name="manager" required lay-verify="required" autocomplete="off" class="layui-input"
+                        id="edit-manager" placeholder="经手人信息">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="edit-sumbit">立即提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+<script>
+    layui.use(['form', 'layer'], function () {
+        var form = layui.form;
+        var layer = layui.layer;
+        //监听提交
+        form.on('submit(edit-sumbit)', function (data) {
+            console.log(data);
+            // 向服务器提交表单
+            // $.post();
+            layer.msg(JSON.stringify(data.field));
+            layer.alert("修改成功", { icon: 6 }, function () {
+                // 获得frame索引
+                var index = parent.layer.getFrameIndex(window.name);
+                //关闭当前frame
+                parent.layer.close(index);
+            });
+            return false;
+        });
+    });
+</script>
+
+</html>
