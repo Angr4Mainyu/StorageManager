@@ -5,7 +5,7 @@
 
     function delete_item($table,$data){
         $iid= $data['iid'];
-        $sql = "delete from $table where iid = '$iid'";
+        $sql = "delete from $table where iid = '$iid';";
         return $sql;
     }
 
@@ -18,7 +18,7 @@
         $total = $data['total'];
         $manager = $data['manager'];
     
-        $sql = "insert into $table value ('$iid','$name','$id','$price','$count','$total','$manager')";
+        $sql = "insert into $table value ('$iid','$id','$name','$price','$count','$total','$manager');";
         // echo $sql;
         return $sql;
     }
@@ -27,12 +27,11 @@
         $iid1= $data1['iid1'];
         $iid2= $data2['iid2'];
         
-        $sql = "update $table set iid1 = '$iid1' where iid2 = '$iid2'";
-        echo $sql;
+        $sql = "update $table set iid1 = '$iid1' where iid2 = '$iid2';";
     }
 
     function select_item($table,$data){
-        $sql = "select * from input;";
+        $sql = "select * from $table;";
         
     }
 
@@ -45,35 +44,41 @@
         else{
             $table = 'input';
         }
-        $data = $_POST['data'];
-
-
+        if(isset($_POST['data'])){
+            $data = json_decode($_POST['data'],TRUE);
+        }
+        else{
+            $data = array('iid' =>-1);
+        }
+        // var_dump($data);
         switch ($action) {
             case 'list':
-                $sql = 'select * from $table';
-                $result = mysqli_query($db,$sql);
+                $sql = "select * from $table;";
+                // echo $sql;
                 break;
             case 'delete':
                 $sql = delete_item($table,$data);
-                $result = mysqli_query($db,$sql);
                 break;
             case 'update':
                 $sql = update_item($table,$data);
-                $result = mysqli_query($db,$sql);
                 break;
             case 'select':
                 $sql = select_item($table,$data);
-                $result = mysqli_query($db,$sql);
                 break;
             case 'insert':
                 $sql = insert_item($table,$data);
-                $result = mysqli_query($db,$sql);
+                // echo $sql;
+                break;
+            case 'getiid':
+                $sql = "select max(iid) from input;";
                 break;
             default:
-                $sql = 'select * from input';
-                $result = mysqli_query($db,$sql);
+                $sql = 'select * from input;';
                 break;
         }
-        output($result);
-	}
+        // echo $sql;
+        // var_dump($result);
+        $result = mysqli_query($db,$sql);
+        echo output($result);
+    }
 ?>

@@ -1,6 +1,12 @@
 <?php
     function output($result){
-        if($result->num_rows == 0){
+        if(!$result){
+            $code = 2;
+            $msg = "Operation Error";
+            $n_rows = 0;
+            $data = [];
+        }
+        else if($result->num_rows == 0){
             $code = 1;
             $msg = "Empty Set";
             $n_rows = 0;

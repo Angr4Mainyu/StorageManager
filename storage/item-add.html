@@ -14,14 +14,14 @@
     <script type="text/javascript" src="../js/xadmin.js"></script>
 </head>
 
-<body>
+<body onload="getiid()">
     <div class="x-body">
         <form class="layui-form layui-form-pane" action="">
             <div class="layui-form-item">
                 <label class="layui-form-label">订单号</label>
                 <div class="layui-input-block">
-                    <input type="text" name="iid" required lay-verify="required" autocomplete="off" class="layui-input"
-                        id="edit-iid" placeholder="请输入唯一的订单号">
+                    <input type="text" name="iid" autocomplete="off" class="layui-input" id="edit-iid" placeholder="订单号将由系统自动生成"
+                        disabled>
                 </div>
             </div>
             <div class="layui-form-item">
@@ -34,29 +34,29 @@
             <div class="layui-form-item">
                 <label class="layui-form-label"><span class="x-red">*</span>ID</label>
                 <div class="layui-input-block">
-                    <input type="text" name="id" required lay-verify="required" autocomplete="off" class="layui-input"
+                    <input type="text" name="id" required lay-verify="required|number" autocomplete="off" class="layui-input"
                         id="edit-id" placeholder="请输入货物ID">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label"><span class="x-red">*</span>单价</label>
                 <div class="layui-input-block">
-                    <input type="text" name="price" required lay-verify="required" autocomplete="off" class="layui-input"
+                    <input type="text" name="price" required lay-verify="required|number" autocomplete="off" class="layui-input"
                         id="edit-price" placeholder="请输入货物单价">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label"><span class="x-red">*</span>数量</label>
                 <div class="layui-input-block">
-                    <input type="text" name="count" required lay-verify="required" autocomplete="off" class="layui-input"
-                        id="edit-count" placeholder="请输入货物总数量">
+                    <input type="text" name="count" required lay-verify="required|number" autocomplete="off" class="layui-input"
+                        id="edit-count" placeholder="请输入货物总数量" onblur="getTotal()">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label"><span class="x-red">*</span>总价</label>
                 <div class="layui-input-block">
-                    <input type="text" name="total" required lay-verify="required" autocomplete="off" class="layui-input"
-                        id="edit-total" placeholder="请输入货物总额">
+                    <input type="text" name="total" required lay-verify="required|number" autocomplete="off" class="layui-input"
+                        id="edit-total" placeholder="货物总额自动生成" disabled>
                 </div>
             </div>
             <div class="layui-form-item">
@@ -82,17 +82,59 @@
         form.on('submit(edit-sumbit)', function (data) {
             console.log(data);
             // 向服务器提交表单
-            // $.post();
+            $.post(
+                url = 'storage-input.php',
+                data = {
+                    token: "secret",
+                    action: "insert",
+                    table: "input",
+                    data: JSON.stringify(data.field)
+                },
+                function (res) {
+                    console.log(res);
+                    layer.msg(JSON.stringify(res));
+                    res = JSON.parse(res);
+                    if (res["code"] == 1) {
+                        layer.alert("添加成功", { icon: 6 }, function () {
+                            // 获得frame索引
+                            var index = parent.layer.getFrameIndex(window.name);
+                            //关闭当前frame
+                            parent.layer.close(index);
+                            parent.layui.table.reload('storage_input', { page: { curr: 1 } });
+                        });
+                    }
+                    else {
+                        layer.alert('添加失败', { icon: 1 });
+                    }
+                    var index = parent.layer.getFrameIndex(window.name);
+                    parent.layer.close(index);
+                }
+            );
             layer.msg(JSON.stringify(data.field));
-            layer.alert("修改成功", { icon: 6 }, function () {
-                // 获得frame索引
-                var index = parent.layer.getFrameIndex(window.name);
-                //关闭当前frame
-                parent.layer.close(index);
-            });
             return false;
         });
     });
+
+    function getTotal() {
+        var total = $("#edit-price").val() * $("#edit-count").val();
+        $("#edit-total").val(total);
+    }
+
+    function getiid() {
+        $.post(
+            url = 'storage-input.php',
+            data = {
+                token: "secret",
+                action: "getiid",
+                table: "input",
+            },
+            function (data) {
+                console.log(data);
+                data = JSON.parse(data);
+                $("#edit-iid").val(Number(data["data"][0]["max(iid)"]) + 1);
+            }
+        );
+    }
 </script>
 
 </html>

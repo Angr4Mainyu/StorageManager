@@ -23,7 +23,42 @@
     <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="delete">删除选中</button>
   </div>
 </script>
-
+    <div class="layui-row">
+        <form class="layui-form">
+            <div class="layui-input-inline layui-col-md2">
+                <select name="contrller">
+                    <option>支付状态</option>
+                    <option>已支付</option>
+                    <option>未支付</option>
+                </select>
+            </div>
+            <div class="layui-input-inline layui-col-md2">
+                <select name="contrller">
+                    <option>支付方式</option>
+                    <option>支付宝</option>
+                    <option>微信</option>
+                    <option>货到付款</option>
+                </select>
+            </div>
+            <div class="layui-input-inline layui-col-md2">
+                <select name="contrller">
+                    <option value="">订单状态</option>
+                    <option value="0">待确认</option>
+                    <option value="1">已确认</option>
+                    <option value="2">已收货</option>
+                    <option value="3">已取消</option>
+                    <option value="4">已完成</option>
+                    <option value="5">已作废</option>
+                </select>
+            </div>
+            <div class="layui-col-md2">
+                <input type="text" name="username" placeholder="请输入订单号" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-col-md2">
+                <button class="layui-btn layui-col-md2" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+            </div>
+        </form>
+    </div>
     <table id="storage_input" lay-filter="storage_input"></table>
 
     <script type="text/html" id="Headbar">
@@ -48,16 +83,17 @@
                     action: 'list',
                 }
                 , page: true
+                , id : "storage_input"
                 , totalRow: true
                 , toolbar: '#toolbar'
                 , cols: [[ //表头
                     { type: 'checkbox', fixed: 'left' }
                     , { field: 'iid', title: '订单号', sort: true, totalRowText: '合计' }
-                    , { field: 'name', title: '货物名', sort: true }
-                    , { field: 'id', title: 'ID', sort: true }
-                    , { field: 'price', title: '单价', sort: true }
-                    , { field: 'count', title: '数量', sort: true, totalRow: true }
-                    , { field: 'total', title: '总价', sort: true, totalRow: true }
+                    , { field: 'name', title: '货物名', sort: true , edit: 'text'}
+                    , { field: 'id', title: 'ID', sort: true , edit: 'text'}
+                    , { field: 'price', title: '单价', sort: true , edit: 'text'}
+                    , { field: 'count', title: '数量', sort: true, totalRow: true , edit: 'text'}
+                    , { field: 'total', title: '总价', sort: true, totalRow: true , edit: 'text'}
                     , { field: 'manager', title: '经手人' }
                     , { fixed: 'right', title: '操作', align: 'center', toolbar: '#Headbar' }
                 ]]
@@ -176,6 +212,7 @@
                                 body.find("#edit-manager").val(data['manager']);
                             }
                         });
+                        table.reload('storage_input', { page: { curr: 1 } });
                         break;
                     case 'del':
                         layer.confirm('确认要删除吗？', function (index) {
@@ -183,16 +220,19 @@
                             $.post(
                                 url = 'storage-input.php',
                                 data = {
-                                    token = 'secret',
+                                    token: 'secret',
                                     action: 'delete',
                                     table: 'input',
-                                    data: {iid : data['iid']}
+                                    data: JSON.stringify(data)
                                 },
                                 success = function (res) {
-                                    if (res["code"] == 0) {
+                                    console.log(res);
+                                    res = JSON.parse(res);
+                                    if (res["code"] == 1) {
                                         // 更新页面元素
                                         obj.del();
                                         layer.close(index);
+                                        layer.msg("删除成功");
                                     }
                                     else {
                                         layer.msg("删除失败");
