@@ -23,16 +23,16 @@
         return $sql;
     }
 
-    function update_item($table,$data1,$data2){
-        $iid1= $data1['iid1'];
-        $iid2= $data2['iid2'];
+    function update_item($table,$data,$field,$value){
+        $iid= $data['iid'];
         
-        $sql = "update $table set iid1 = '$iid1' where iid2 = '$iid2';";
+        $sql = "update $table set $field = '$value' where iid = '$iid';";
+        return $sql;
     }
 
     function select_item($table,$data){
         $sql = "select * from $table;";
-        
+        return $sql;
     }
 
     if(isset($_POST["token"]) && isset($_POST["action"]) ){
@@ -60,7 +60,9 @@
                 $sql = delete_item($table,$data);
                 break;
             case 'update':
-                $sql = update_item($table,$data);
+                $field = $_POST['field'];
+                $value = $_POST['value'];
+                $sql = update_item($table,$data,$field,$value);
                 break;
             case 'select':
                 $sql = select_item($table,$data);
