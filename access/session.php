@@ -1,6 +1,6 @@
 <?php
 session_start();
 if(!$_SESSION['logged']){
-    header("Location: access/login.html");
+    header("Location: /StorageManager/access/login.html");
 }
 ?>

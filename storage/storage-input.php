@@ -31,7 +31,38 @@
     }
 
     function select_item($table,$data){
-        $sql = "select * from $table;";
+        $sql = "select * from $table";
+        if(isset($_POST["iid"])){
+            $iid = $_POST["iid"];
+            if($option == 0){
+                $sql = $sql. " where iid = $iid";
+            }
+            else{
+                $sql = $sql. " and iid = $iid";
+            }
+            $option += 1;
+        }
+        if(isset($_POST["name"])){
+            $name = $_POST["name"];
+            if($option == 0){
+                $sql = $sql. " where name = '$name'";
+            }
+            else{
+                $sql = $sql. " and name = '$name'";
+            }
+            $option += 1;
+        }
+        if(isset($_POST["manager"])){
+            $manager = $_POST["manager"];
+            if($option == 0){
+                $sql = $sql. " where manager = '$manager'";
+            }
+            else{
+                $sql = $sql. " and manager = '$manager'";
+            }
+            $option += 1;
+        }
+        $sql = $sql. ";";
         return $sql;
     }
 
@@ -79,8 +110,8 @@
                 break;
         }
         // echo $sql;
-        // var_dump($result);
         $result = mysqli_query($db,$sql);
+        // var_dump($result);
         echo output($result);
     }
 ?>
