@@ -42,7 +42,7 @@
                 <label class="layui-form-label"><span class="x-red">*</span>单价</label>
                 <div class="layui-input-block">
                     <input type="text" name="price" required lay-verify="required|number" autocomplete="off" class="layui-input"
-                        id="edit-price" placeholder="请输入货物单价">
+                        id="edit-price" placeholder="请输入货物单价" onblur="getTotal()">
                 </div>
             </div>
             <div class="layui-form-item">

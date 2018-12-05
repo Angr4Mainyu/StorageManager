@@ -42,7 +42,7 @@
                 <label class="layui-form-label"><span class="x-red">*</span>单价</label>
                 <div class="layui-input-block">
                     <input type="text" name="price" required lay-verify="required|number" autocomplete="off" class="layui-input"
-                        id="edit-price" placeholder="请输入货物单价">
+                        id="edit-price" placeholder="请输入货物单价" onblur="getTotal()">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -95,12 +95,13 @@
                     layer.msg(JSON.stringify(res));
                     res = JSON.parse(res);
                     if (res["code"] == 1) {
-                        layer.alert("添加成功", { icon: 6 }, function () {
+                        layer.msg("添加成功", { icon: 6 }, function () {
                             // 获得frame索引
                             var index = parent.layer.getFrameIndex(window.name);
                             //关闭当前frame
-                            parent.layer.close(index);
-                            parent.layui.table.reload('storage_input', { page: { curr: 1 } });
+                            console.log(parent);
+                            setTimeout(parent.layer.close(index),1000);
+                            parent.layui.table.reload('storage_input', { where :{token: 'secret',action: 'list',} });
                         });
                     }
                     else {

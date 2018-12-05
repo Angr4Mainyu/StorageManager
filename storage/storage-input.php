@@ -19,7 +19,6 @@
         $manager = $data['manager'];
     
         $sql = "insert into $table value ('$iid','$id','$name','$price','$count','$total','$manager');";
-        // echo $sql;
         return $sql;
     }
 

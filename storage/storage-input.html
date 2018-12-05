@@ -17,8 +17,8 @@
 
     <script type="text/html" id="toolbar">
   <div class="layui-btn-container">
-    <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
-    <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
+    <!-- <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button> -->
+    <!-- <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button> -->
     <button class="layui-btn layui-btn-sm" lay-event="add">添加</button>
     <!-- <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="delete">删除选中</button> -->
   </div>
@@ -35,7 +35,8 @@
             </div>
             <label class="layui-form-label layui-col-md1">经手人</label>
             <div class="layui-input-inline layui-col-md1">
-                <input type="text" name="reload-manager" id="reload-manager" placeholder="请输入经手人" autocomplete="off" class="layui-input">
+                <input type="text" name="reload-manager" id="reload-manager" placeholder="请输入经手人" autocomplete="off"
+                    class="layui-input">
             </div>
             <div class="layui-btn" data-type="reload" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></div>
         </form>
@@ -68,8 +69,8 @@
                 , totalRow: true
                 , toolbar: '#toolbar'
                 , cols: [[ //表头
-                    { type: 'checkbox', fixed: 'left' }
-                    , { field: 'iid', title: '订单号', sort: true, totalRowText: '合计' }
+                    // { type: 'checkbox', fixed: 'left' }, 
+                    { field: 'iid', title: '订单号', sort: true, totalRowText: '合计' }
                     , { field: 'name', title: '货物名', sort: true, edit: 'text' }
                     , { field: 'id', title: 'ID', sort: true, edit: 'text' }
                     , { field: 'price', title: '单价', sort: true }
@@ -202,7 +203,7 @@
                             shadeClose: true, //点击遮罩关闭
                             success: function (layero, index) {
                                 var body = layer.getChildFrame('body', index);
-                                console.log(body.html()) //得到iframe页的body内容
+                                // console.log(body.html()) //得到iframe页的body内容
                                 //初始化表单数据的值
                                 body.find("#edit-iid").val(data['iid']); //要修改的每个td的值存为变量传进去
                                 // body.find("#edit-iid").defaultValue = data['iid'];
@@ -214,7 +215,6 @@
                                 body.find("#edit-manager").val(data['manager']);
                             }
                         });
-                        table.reload('storage_input', { page: { curr: 1 } });
                         break;
                     case 'del':
                         layer.confirm('确认要删除吗？', function (index) {
@@ -231,9 +231,16 @@
                                     console.log(res);
                                     res = JSON.parse(res);
                                     if (res["code"] == 1) {
-                                        // 更新页面元素
-                                        obj.del();
-                                        layer.close(index);
+                                        // 更新页面元素,执行重载
+                                        tableIns.reload({
+                                            page: {
+                                                curr: 1 //重新从第 1 页开始
+                                            }
+                                            , where: {
+                                                token: 'secret',
+                                                action: 'list',
+                                            }
+                                        });
                                         layer.msg("删除成功");
                                     }
                                     else {
@@ -267,9 +274,9 @@
                         , where: {
                             token: 'secret',
                             action: 'select',
-                            iid: $('#reload-iid').val()=='' ? undefined :$('#reload-iid').val(),
-                            name: $("#reload-name").val()=='' ? undefined : $("#reload-name").val(),
-                            manager: $("#reload-manager").val()==''? undefined : $("#reload-manager").val()
+                            iid: $('#reload-iid').val() == '' ? undefined : $('#reload-iid').val(),
+                            name: $("#reload-name").val() == '' ? undefined : $("#reload-name").val(),
+                            manager: $("#reload-manager").val() == '' ? undefined : $("#reload-manager").val()
                         }
                     });
                 }
