@@ -73,7 +73,7 @@
                             </a>
                         </li>
                         <li>
-                            <a _href="storage/storage-input.html">
+                            <a _href="storage/storage-output.html">
                                 <i class="iconfont">&#xe6a7;</i>
                                 <cite>出库管理</cite>
                             </a>

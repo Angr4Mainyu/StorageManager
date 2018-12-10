@@ -15,10 +15,11 @@
         $id = $data['id'];
         $price = $data['price'];
         $count = $data['count'];
-        $total = $data['total'];
         $manager = $data['manager'];
-    
-        $sql = "insert into $table value ('$iid','$id','$name','$price','$count','$total','$manager');";
+        $date = date('Y-m-d');
+        $time = date('H:i:s');
+
+        $sql = "insert into $table value ('$iid','$id','$name','$count','$price','$manager','$date','$time');";
         return $sql;
     }
 

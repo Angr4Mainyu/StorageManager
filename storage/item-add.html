@@ -71,6 +71,8 @@
                     <button class="layui-btn" lay-submit lay-filter="edit-sumbit">立即提交</button>
                 </div>
             </div>
+            <input style="display:none" type="text" name="table" required lay-verify="required" autocomplete="off"
+                class="layui-input" id="edit-table"></input>
         </form>
     </div>
 </body>
@@ -87,7 +89,7 @@
                 data = {
                     token: "secret",
                     action: "insert",
-                    table: "input",
+                    table: $('#edit-table').val(),
                     data: JSON.stringify(data.field)
                 },
                 function (res) {
@@ -100,8 +102,8 @@
                             var index = parent.layer.getFrameIndex(window.name);
                             //关闭当前frame
                             console.log(parent);
-                            setTimeout(parent.layer.close(index),1000);
-                            parent.layui.table.reload('storage_input', { where :{token: 'secret',action: 'list',} });
+                            setTimeout(parent.layer.close(index), 1000);
+                            parent.layui.table.reload('storage_input', { where: { token: 'secret', action: 'list', } });
                         });
                     }
                     else {
