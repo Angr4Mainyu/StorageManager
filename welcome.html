@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>欢迎页面-X-admin2.0</title>
-        <meta name="renderer" content="webkit">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
-        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-        <link rel="stylesheet" href="./css/font.css">
-        <link rel="stylesheet" href="./css/xadmin.css">
-    </head>
-    <body>
+
+<head>
+    <meta charset="UTF-8">
+    <title>欢迎页面-X-admin2.0</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="./css/font.css">
+    <link rel="stylesheet" href="./css/xadmin.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
     <div class="x-body layui-anim layui-anim-up">
         <blockquote class="layui-elem-quote">欢迎管理员：
             <span class="x-red">后台管理</span>！当前时间:<a id="show"></a> </blockquote>
@@ -20,7 +23,8 @@
                 <div class="layui-col-md12">
                     <div class="layui-card">
                         <div class="layui-card-body">
-                            <div class="layui-carousel x-admin-carousel x-admin-backlog" lay-anim="" lay-indicator="inside" lay-arrow="none" style="width: 100%; height: 90px;">
+                            <div class="layui-carousel x-admin-carousel x-admin-backlog" lay-anim="" lay-indicator="inside"
+                                lay-arrow="none" style="width: 100%; height: 90px;">
                                 <div carousel-item="">
                                     <ul class="layui-row layui-col-space10 layui-this">
                                         <li class="layui-col-xs2">
@@ -79,8 +83,8 @@
                 <table class="layui-table" lay-skin="line">
                     <tbody>
                         <tr>
-                            <td >
-                                <a class="x-a" target="_blank">交流qq群:(519492808)</a>
+                            <td>
+                                <a class="x-a" target="_blank">Welcome to our storage manager system!</a>
                             </td>
                         </tr>
                     </tbody>
@@ -90,41 +94,52 @@
         <fieldset class="layui-elem-field">
             <legend>系统信息</legend>
             <div class="layui-field-box">
-                <table class="layui-table">
+                <table class="layui-table" id="config">
                     <tbody>
                         <tr>
                             <th>系统版本</th>
-                            <td>1.0</td></tr>
+                            <td>1.0</td>
+                        </tr>
                         <tr>
                             <th>服务器地址</th>
-                            <td>x.xuebingsi.com</td></tr>
+                            <td>x.xuebingsi.com</td>
+                        </tr>
                         <tr>
                             <th>操作系统</th>
-                            <td>WINNT</td></tr>
+                            <td>WINNT</td>
+                        </tr>
                         <tr>
                             <th>运行环境</th>
-                            <td>Apache/2.4.23 (Win32) OpenSSL/1.0.2j mod_fcgid/2.3.9</td></tr>
+                            <td>Apache/2.4.23 (Win32) OpenSSL/1.0.2j mod_fcgid/2.3.9</td>
+                        </tr>
                         <tr>
                             <th>PHP版本</th>
-                            <td>5.6.27</td></tr>
+                            <td>5.6.27</td>
+                        </tr>
                         <tr>
                             <th>PHP运行方式</th>
-                            <td>cgi-fcgi</td></tr>
+                            <td>cgi-fcgi</td>
+                        </tr>
                         <tr>
                             <th>MYSQL版本</th>
-                            <td>5.5.53</td></tr>
+                            <td>5.5.53</td>
+                        </tr>
                         <tr>
                             <th>ThinkPHP</th>
-                            <td>5.0.18</td></tr>
+                            <td>5.0.18</td>
+                        </tr>
                         <tr>
                             <th>上传附件限制</th>
-                            <td>2M</td></tr>
+                            <td>2M</td>
+                        </tr>
                         <tr>
                             <th>执行时间限制</th>
-                            <td>30s</td></tr>
+                            <td>30s</td>
+                        </tr>
                         <tr>
                             <th>剩余空间</th>
-                            <td>86015.2M</td></tr>
+                            <td>86015.2M</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -137,19 +152,36 @@
                         <tr>
                             <th>版权所有</th>
                             <td>AngrMainyu
-                                <a href="http://www.baidu.com/" class='x-a' target="_blank">访问官网</a></td>
+                                <a href="https://github.com/Angr4Mainyu" class='x-a' target="_blank">访问官网</a></td>
                         </tr>
                         <tr>
                             <th>开发者</th>
-                            <td>XXX</td></tr>
+                            <td>XXX</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
         </fieldset>
-        <blockquote class="layui-elem-quote layui-quote-nm">感谢layui,百度Echarts,jquery</blockquote>
     </div>
     <script type="text/javascript">
         window.onload = function () {
+            $.get("access/config.php", function (res) {
+                var config_table = document.getElementById('config');
+                res = JSON.parse(res);
+                config_table.rows[0].cells[1].innerHTML = res['系统版本'];
+                config_table.rows[1].cells[1].innerHTML = "<a href=\""+res['服务器地址'] +"\" >"+"官网"+"</a>";
+                config_table.rows[2].cells[1].innerHTML = res['操作系统'];
+                config_table.rows[3].cells[1].innerHTML = res['运行环境'];
+                config_table.rows[4].cells[1].innerHTML = res['PHP版本'];
+                config_table.rows[5].cells[1].innerHTML = res['PHP运行方式'];
+                config_table.rows[6].cells[1].innerHTML = res['MYSQL版本'];
+                config_table.rows[7].cells[1].innerHTML = res['ThinkPHP'];
+                config_table.rows[8].cells[1].innerHTML = res['上传附件限制'];
+                config_table.rows[9].cells[1].innerHTML = res['执行时间限制'];
+                config_table.rows[10].cells[1].innerHTML = res['剩余空间'];
+            }
+            )
+
             var show = document.getElementById("show");
             setInterval(function () {
                 var time = new Date();   // 程序计时的月从0开始取值后+1   
@@ -161,5 +193,6 @@
             }, 1000);
         };
     </script>
-    </body>
+</body>
+
 </html>

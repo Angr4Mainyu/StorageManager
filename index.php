@@ -59,7 +59,7 @@
     <div class="left-nav">
         <div id="side-nav">
             <ul id="nav">
-                                <li>
+                <li>
                     <a href="javascript:;">
                         <i class="iconfont">&#xe709;</i>
                         <cite>仓库管理</cite>
@@ -109,6 +109,21 @@
                             <a _href="order/order-list.html">
                                 <i class="iconfont">&#xe6a7;</i>
                                 <cite>订单列表</cite>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <i class="iconfont">&#xe723;</i>
+                        <cite>功能</cite>
+                        <i class="iconfont nav_right">&#xe697;</i>
+                    </a>
+                    <ul class="sub-menu">
+                        <li>
+                            <a _href="order/order-list.html">
+                                <i class="iconfont">&#xe6a7;</i>
+                                <cite>视频播放</cite>
                             </a>
                         </li>
                     </ul>
@@ -240,9 +255,9 @@
     <!-- 右侧主体结束 -->
     <!-- 中部结束 -->
     <!-- 底部开始 -->
-    <div class="footer">
+    <!-- <div class="footer">
         <div class="copyright">Copyright ©2017 x-admin 2.3 All Rights Reserved</div>
-    </div>
+    </div> -->
     <!-- 底部结束 -->
 
 </body>
