@@ -1,5 +1,5 @@
 <?php
-    function output($result){
+    function output($result,$total_count){
         if(!$result){
             $code = 2;
             $msg = "Operation Error";
@@ -14,7 +14,6 @@
         }else{
             $code = 0;
             $msg = "Query success";
-            $n_rows = $result->num_rows;
 
             $arr = array();
             while($row = mysqli_fetch_array($result)) {
@@ -29,7 +28,7 @@
         $out = array(
             "code" => $code, 
             "msg" => $msg,
-            "count" => $n_rows,
+            "count" => $total_count,
             "data" => $arr
             );
         return json_encode($out,JSON_UNESCAPED_UNICODE);

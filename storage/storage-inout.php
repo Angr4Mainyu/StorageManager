@@ -3,6 +3,28 @@
     include("../db/db_config.php");
     include("../db/JSON.php");
 
+    function getTotal($sql){
+        global $db;
+        $sql = str_replace("*","count(*) as count",$sql);
+        $sql = $sql. ";";
+        $result = mysqli_query($db,$sql);
+        $row = mysqli_fetch_array($result);
+        return $row['count'];
+    }
+
+    function limit($sql){
+        global $total_count;
+        $total_count = getTotal($sql);
+        if (isset($_POST["page"]) && isset($_POST["limit"])) {
+            $page = $_POST["page"];
+            $limit = $_POST["limit"];
+            $start = $limit * ($page - 1);
+
+            $sql = $sql. " limit $start,$limit";
+        }
+        return $sql;
+    }
+
     function delete_item($table,$data){
         $iid= $data['iid'];
         $sql = "delete from $table where iid = '$iid';";
@@ -62,18 +84,40 @@
             }
             $option += 1;
         }
+
+        if(isset($_POST["date1"]) && isset($_POST["date2"]) && isset($_POST["time1"]) && isset($_POST["time2"])){
+            $date1 = $_POST["date1"];
+            $date2 = $_POST["date2"];
+            $time1 = $_POST["time1"];
+            $time2 = $_POST["time2"];
+            if($time2 == "00:00:00"){
+                $time2 = "24:00:00";
+            }
+            if($option == 0){
+                $sql = $sql. " where date between '$date1' and '$date2'";
+                $sql = $sql. " and time between '$time1' and '$time2'";
+            }
+            else{
+                $sql = $sql. " where date between '$date1' and '$date2'";
+                $sql = $sql. " and time between '$time1' and '$time2'";
+            }
+            $option += 1;
+        }
+
+        $sql = limit($sql);
         $sql = $sql. ";";
         return $sql;
     }
 
     if(isset($_POST["token"]) && isset($_POST["action"]) ){
+        $total_count = 0;
 		$token = $_POST['token'];
         $action = $_POST['action'];
         if(isset($_POST['table'])){
             $table = $_POST['table'];
         }
         else{
-            $table = 'output';
+            $table = 'input';
         }
         if(isset($_POST['data'])){
             $data = json_decode($_POST['data'],TRUE);
@@ -82,6 +126,7 @@
             $data = array('iid' =>-1);
         }
         // var_dump($data);
+
         switch ($action) {
             case 'list':
                 $sql = "select * from $table;";
@@ -103,15 +148,15 @@
                 // echo $sql;
                 break;
             case 'getiid':
-                $sql = "select max(iid) from output;";
+                $sql = "select max(iid) from input;";
                 break;
             default:
-                $sql = 'select * from output;';
+                $sql = 'select * from input;';
                 break;
         }
         // echo $sql;
         $result = mysqli_query($db,$sql);
         // var_dump($result);
-        echo output($result);
+        echo output($result,$total_count);
     }
 ?>

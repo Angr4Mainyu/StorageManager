@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <title>表格操作 - layui</title>
+    <title>出库表</title>
 
     <link rel="stylesheet" href="../css/layui.css">
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
@@ -28,7 +28,7 @@
         <form class="layui-form">
             <label class="layui-form-label layui-col-md1">订单号</label>
             <div class="layui-input-inline layui-col-md1">
-                <input type="text" name="reload-iid" id="reload-iid" placeholder="请输入订单号" autocomplete="off" class="layui-input">
+                <input type="text" name="reload-oid" id="reload-oid" placeholder="请输入订单号" autocomplete="off" class="layui-input">
             </div>
             <label class="layui-form-label layui-col-md1">货物名</label>
             <div class="layui-input-inline layui-col-md1">
@@ -46,7 +46,7 @@
             <div class="layui-btn" data-type="reload" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></div>
         </form>
     </div>
-    <table id="storage_output" lay-filter="storage_output"></table>
+    <table id="storage" lay-filter="storage" tablename="output"></table>
 
     <script type="text/html" id="Headbar">
         <!-- <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a> -->
@@ -55,7 +55,7 @@
     </script>
 
     <script src="../layui.js" charset="utf-8"></script>
-    <script src="../js/storage-output.js" charset="utf-8"></script>
+    <script src="../js/storage-inout.js" charset="utf-8"></script>
 </body>
 
 </html>
