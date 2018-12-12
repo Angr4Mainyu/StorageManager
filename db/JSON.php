@@ -4,13 +4,13 @@
             $code = 2;
             $msg = "Operation Error";
             $n_rows = 0;
-            $data = [];
+            $data = array();
         }
         else if($result->num_rows == 0){
             $code = 1;
             $msg = "Empty Set";
             $n_rows = 0;
-            $data = [];
+            $data = array();
         }else{
             $code = 0;
             $msg = "Query success";

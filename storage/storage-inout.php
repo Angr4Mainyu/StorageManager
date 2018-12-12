@@ -26,13 +26,25 @@
     }
 
     function delete_item($table,$data){
-        $iid= $data['iid'];
-        $sql = "delete from $table where iid = '$iid';";
+        if($table == "input"){
+            $ord_id = "iid";
+        }
+        else {
+            $ord_id = "oid";
+        }
+
+        $sql = "delete from $table where $ord_id = '$data[$ord_id]';";
         return $sql;
     }
 
     function insert_item($table,$data){
-        $iid = $data['iid'];
+        if($table == "input"){
+            $ord_id = "iid";
+        }
+        else {
+            $ord_id = "oid";
+        }
+
         $name = $data['name'];
         $id = $data['id'];
         $price = $data['price'];
@@ -41,18 +53,33 @@
         $date = date('Y-m-d');
         $time = date('H:i:s');
 
-        $sql = "insert into $table value ('$iid','$id','$name','$count','$price','$manager','$date','$time');";
+        $sql = "insert into $table value ('$data[$ord_id]','$id','$name','$count','$price','$manager','$date','$time');";
         return $sql;
     }
 
     function update_item($table,$data,$field,$value){
-        $iid= $data['iid'];
-        
-        $sql = "update $table set $field = '$value' where iid = '$iid';";
+        if($table == "input"){
+            $ord_id = "iid";
+        }
+        else {
+            $ord_id = "oid";
+        }
+
+        $date = date('Y-m-d');
+        $time = date('H:i:s');
+
+        $sql = "update $table set $field = '$value',date = '$date',time = '$time' where $ord_id = '$data[$ord_id]';";
         return $sql;
     }
 
     function select_item($table,$data){
+        if($table == "input"){
+            $ord_id = "iid";
+        }
+        else {
+            $ord_id = "oid";
+        }
+
         $sql = "select * from $table";
         if(isset($_POST["iid"])){
             $iid = $_POST["iid"];
@@ -61,6 +88,16 @@
             }
             else{
                 $sql = $sql. " and iid = $iid";
+            }
+            $option += 1;
+        }
+        if(isset($_POST["oid"])){
+            $oid = $_POST["oid"];
+            if($option == 0){
+                $sql = $sql. " where oid = $oid";
+            }
+            else{
+                $sql = $sql. " and oid = $oid";
             }
             $option += 1;
         }
@@ -105,6 +142,7 @@
         }
 
         $sql = limit($sql);
+        $sql =   str_replace("*","$ord_id,name,count,price,manager,date,time,count*price as total",$sql);
         $sql = $sql. ";";
         return $sql;
     }
@@ -123,15 +161,15 @@
             $data = json_decode($_POST['data'],TRUE);
         }
         else{
-            $data = array('iid' =>-1);
+            $data = array('iid' =>-1,'oid' => -1);
         }
         // var_dump($data);
 
         switch ($action) {
-            case 'list':
-                $sql = "select * from $table;";
-                // echo $sql;
-                break;
+            // case 'list':
+            //     $sql = "select * from $table;";
+            //     // echo $sql;
+            //     break;
             case 'delete':
                 $sql = delete_item($table,$data);
                 break;
@@ -147,8 +185,13 @@
                 $sql = insert_item($table,$data);
                 // echo $sql;
                 break;
-            case 'getiid':
-                $sql = "select max(iid) from input;";
+            case 'get_ord_id':
+                if($table == "input"){
+                    $sql = "select max(iid) from $table;";
+                }
+                else {
+                    $sql = "select max(oid) from $table;";
+                }
                 break;
             default:
                 $sql = 'select * from input;';

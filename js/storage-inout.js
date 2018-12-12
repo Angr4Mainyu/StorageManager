@@ -1,4 +1,4 @@
-/* 入库系统使用的js函数 */
+/* 出入库系统使用的js函数 */
 layui.use(['table', 'laydate'], function () {
     var table = layui.table;
     var tableName = document.getElementById("storage").attributes["tablename"].value;
@@ -33,7 +33,7 @@ layui.use(['table', 'laydate'], function () {
             // , { field: 'id', title: 'ID', sort: true, edit: 'text' }
             , { field: 'price', title: '单价', sort: true, edit: 'text' }
             , { field: 'count', title: '数量', sort: true, edit: 'test', totalRow: true }
-            , { field: 'total', title: '总价', sort: true, totalRow: true, templet: "<div>{{d.count * d.price}}</div>" }
+            , { field: 'total', title: '总价', sort: true, totalRow: true}
             , { field: 'manager', title: '经手人', edit: 'text' }
             , { field: 'date', title: '操作日期', sort: true }
             , { field: 'time', title: '操作时间', sort: true }

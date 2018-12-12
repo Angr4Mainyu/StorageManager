@@ -20,7 +20,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">订单号</label>
                 <div class="layui-input-block">
-                    <input type="text" name="iid" autocomplete="off" class="layui-input" id="edit-iid" placeholder="订单号将由系统自动生成"
+                    <input type="text" name="iid" autocomplete="off" class="layui-input" id="edit-ord-id" placeholder="订单号将由系统自动生成"
                         disabled>
                 </div>
             </div>
@@ -85,7 +85,7 @@
             console.log(data);
             // 向服务器提交表单
             $.post(
-                url = 'storage-input.php',
+                url = 'storage-inout.php',
                 data = {
                     token: "secret",
                     action: "insert",
@@ -125,16 +125,17 @@
 
     function getiid() {
         $.post(
-            url = 'storage-input.php',
+            url = 'storage-inout.php',
             data = {
                 token: "secret",
-                action: "getiid",
-                table: "input",
+                action: "get_ord_id",
+                table: "input"
             },
             function (data) {
                 console.log(data);
                 data = JSON.parse(data);
-                $("#edit-iid").val(Number(data["data"][0]["max(iid)"]) + 1);
+                $("#edit-ord-id").val(Number(data["data"][0]["max(iid)"]) + 1);
+                // $("#edit-ord-id").val(Number(data["data"][0]["max(oid)"]) + 1);
             }
         );
     }
