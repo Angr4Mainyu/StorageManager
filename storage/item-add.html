@@ -14,7 +14,7 @@
     <script type="text/javascript" src="../js/xadmin.js"></script>
 </head>
 
-<body onload="getiid()">
+<body>
     <div class="x-body">
         <form class="layui-form layui-form-pane" action="">
             <div class="layui-form-item">
@@ -123,19 +123,27 @@
         $("#edit-total").val(total);
     }
 
+    window.onload = function() {
+        setTimeout("getiid()", 0);
+    }
+
     function getiid() {
+        var tableName = $("#edit-table").val();
         $.post(
             url = 'storage-inout.php',
             data = {
                 token: "secret",
                 action: "get_ord_id",
-                table: "input"
+                table: tableName
             },
             function (data) {
                 console.log(data);
                 data = JSON.parse(data);
-                $("#edit-ord-id").val(Number(data["data"][0]["max(iid)"]) + 1);
-                // $("#edit-ord-id").val(Number(data["data"][0]["max(oid)"]) + 1);
+                if(tableName == "input"){
+                    $("#edit-ord-id").val(Number(data["data"][0]["max(iid)"]) + 1);
+                }else{
+                    $("#edit-ord-id").val(Number(data["data"][0]["max(oid)"]) + 1);
+                }
             }
         );
     }
