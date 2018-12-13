@@ -79,23 +79,23 @@
                             </a>
                         </li>
                         <li>
-                            <a _href="storage/storage-list.html">
+                            <a _href="storage/storage-total.html">
                                 <i class="iconfont">&#xe6a7;</i>
-                                <cite>报损管理</cite>
+                                <cite>库存管理</cite>
                             </a>
                         </li>
-                        <li>
-                            <a _href="storage/storage-list.html">
+                        <!-- <li>
+                            <a _href="404.html">
                                 <i class="iconfont">&#xe6a7;</i>
                                 <cite>移库管理</cite>
                             </a>
                         </li>
                         <li>
-                            <a _href="storage/storage-list.html">
+                            <a _href="404.html">
                                 <i class="iconfont">&#xe6a7;</i>
                                 <cite>退货管理</cite>
                             </a>
-                        </li>
+                        </li> -->
                     </ul>
                 </li>
                 <li>

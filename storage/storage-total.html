@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>总库存表</title>
+
+    <link rel="stylesheet" href="../css/layui.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    <style>
+        body{padding: 20px; /*overflow-y: scroll;*/}
+</style>
+</head>
+
+<body>
+
+    <script type="text/html" id="toolbar">
+  <div class="layui-btn-container">
+    <!-- <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button> -->
+    <!-- <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button> -->
+    <button class="layui-btn layui-btn-sm layui-btn-disabled " lay-event="add" ><i class="layui-icon layui-icon-add-1"></i>添加</button>
+    <!-- <div class="layui-inline" lay-event="add"><i class="layui-icon layui-icon-add-1"></i></div> -->
+    <!-- <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="delete">删除选中</button> -->
+  </div>
+</script>
+    <div class="layui-row">
+        <form class="layui-form">
+            <label class="layui-form-label layui-col-md1">ID</label>
+            <div class="layui-input-inline layui-col-md1">
+                <input type="text" name="reload-id" id="reload-id" placeholder="请输入货物ID" autocomplete="off" class="layui-input">
+            </div>
+            <label class="layui-form-label layui-col-md1">货物名</label>
+            <div class="layui-input-inline layui-col-md1">
+                <input type="text" name="reload-name" id="reload-name" placeholder="请输入货物名" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-btn" data-type="reload" lay-filter="search"><i class="layui-icon">&#xe615;</i></div>
+        </form>
+    </div>
+    <table id="storage" lay-filter="storage" tablename="stock"></table>
+
+    <script type="text/html" id="Headbar">
+        <a class="layui-btn layui-btn-xs layui-btn-disabled" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs layui-btn-disabled" lay-event="del" ><i class="layui-icon layui-icon-delete"></i>删除</a>
+        <!-- <div class="layui-inline" lay-event="del"></div> -->
+    </script>
+
+    <script src="../layui.js" charset="utf-8"></script>
+    <script src="../js/storage-total.js" charset="utf-8"></script>
+</body>
+
+</html>

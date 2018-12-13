@@ -60,7 +60,7 @@ layui.use(['table', 'laydate'], function () {
                         var body = layer.getChildFrame('body', index);
                         // console.log(body.html()) //得到iframe页的body内容
                         //初始化表单数据的值
-                        body.find("#edit-table").val('input');
+                        body.find("#edit-table").val(tableName);
                     }
                 });
                 layer.msg('添加');
@@ -71,7 +71,7 @@ layui.use(['table', 'laydate'], function () {
             case 'delete':
                 var data = checkStatus.data;
                 layer.alert(JSON.stringify(data));
-                console.log("delete data");
+                // console.log("delete data");
                 console.log(JSON.stringify(data));
                 layer.confirm('确认要删除吗?', function (index) {
                     //捉到所有被选中的，发异步进行删除
@@ -205,7 +205,7 @@ layui.use(['table', 'laydate'], function () {
                                     where: {
                                         token: 'secret',
                                         action: 'select',
-                                        table: 'input',
+                                        table: tableName,
                                     }
                                 });
                                 layer.msg("删除成功");

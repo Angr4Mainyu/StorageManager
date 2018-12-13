@@ -73,6 +73,7 @@
     }
 
     function select_item($table,$data){
+        $sql = "select * from $table";
         if($table == "input"){
             $ord_id = "iid";
         }
@@ -80,7 +81,6 @@
             $ord_id = "oid";
         }
 
-        $sql = "select * from $table";
         if(isset($_POST["iid"])){
             $iid = $_POST["iid"];
             if($option == 0){
@@ -142,6 +142,9 @@
         }
 
         $sql = limit($sql);
+        if($table == "stock"){
+            return $sql;
+        }
         $sql =   str_replace("*","$ord_id,name,count,price,manager,date,time,count*price as total",$sql);
         $sql = $sql. ";";
         return $sql;
@@ -166,10 +169,6 @@
         // var_dump($data);
 
         switch ($action) {
-            // case 'list':
-            //     $sql = "select * from $table;";
-            //     // echo $sql;
-            //     break;
             case 'delete':
                 $sql = delete_item($table,$data);
                 break;

@@ -14,7 +14,7 @@
     <script type="text/javascript" src="../js/xadmin.js"></script>
 </head>
 
-<body onload="getiid()">
+<body>
     <div class="x-body">
         <form class="layui-form layui-form-pane" action="">
             <div class="layui-form-item">
@@ -28,14 +28,14 @@
                 <label class="layui-form-label"><span class="x-red">*</span>货物名</label>
                 <div class="layui-input-block">
                     <input type="text" name="name" required lay-verify="required" autocomplete="off" class="layui-input"
-                        id="edit-name" placeholder="请输入货物名称">
+                        id="edit-name" placeholder="请输入货物名称" onblur="get_item_id()">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label"><span class="x-red">*</span>ID</label>
                 <div class="layui-input-block">
                     <input type="text" name="id" required lay-verify="required|number" autocomplete="off" class="layui-input"
-                        id="edit-id" placeholder="请输入货物ID">
+                        id="edit-id" placeholder="货物ID将由系统自动生成" disabled>
                 </div>
             </div>
             <div class="layui-form-item">
@@ -123,21 +123,45 @@
         $("#edit-total").val(total);
     }
 
+    window.onload = function () {
+        setTimeout("getiid()", 0);
+    }
+
     function getiid() {
+        var tableName = $("#edit-table").val();
         $.post(
             url = 'storage-inout.php',
             data = {
                 token: "secret",
                 action: "get_ord_id",
-                table: "input"
+                table: tableName
             },
             function (data) {
                 console.log(data);
                 data = JSON.parse(data);
-                $("#edit-ord-id").val(Number(data["data"][0]["max(iid)"]) + 1);
-                // $("#edit-ord-id").val(Number(data["data"][0]["max(oid)"]) + 1);
+                if(tableName == "input"){
+                    $("#edit-ord-id").val(Number(data["data"][0]["max(iid)"]) + 1);
+                }else{
+                    $("#edit-ord-id").val(Number(data["data"][0]["max(oid)"]) + 1);
+                }
             }
         );
+    }
+
+    function get_item_id() {
+        var name = $('#edit-name').val();
+        $.post(
+            url = 'storage-id.php',
+            data = {
+                token: "secret",
+                action: "get_item_id",
+                name: name
+            },
+            function (data) {
+                console.log(data);
+                $('#edit-id').val(data);
+            }
+        )
     }
 </script>
 
