@@ -98,13 +98,13 @@
                     res = JSON.parse(res);
                     if (res["code"] == 1) {
                         layer.msg("添加成功", { icon: 6 }, function () {
-                            // 获得frame索引
-                            var index = parent.layer.getFrameIndex(window.name);
-                            //关闭当前frame
-                            console.log(parent);
-                            setTimeout(parent.layer.close(index), 1000);
-                            parent.layui.table.reload('storage_input', { where: { token: 'secret', action: 'list', } });
                         });
+                        // 获得frame索引
+                        var index = parent.layer.getFrameIndex(window.name);
+                        window.parent.location.reload();
+                        //关闭当前frame
+                        console.log(parent);
+                        setTimeout(parent.layer.close(index), 1000);
                     }
                     else {
                         layer.alert('添加失败', { icon: 1 });

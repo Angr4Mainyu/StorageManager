@@ -1,4 +1,11 @@
 <?php
+/*
+ * @Author: Angra Mainyu
+ * @Date: 2018-12-10 20:44:17
+ * @LastEditors: Angra Mainyu
+ * @LastEditTime: 2018-12-30 21:40:38
+ * @Description: file content
+ */
 include("../db/db_config.php");
 include("session.php");
 

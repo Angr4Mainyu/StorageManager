@@ -121,7 +121,7 @@
                     </a>
                     <ul class="sub-menu">
                         <li>
-                            <a _href="order/order-list.html">
+                            <a _href="function/videos.html">
                                 <i class="iconfont">&#xe6a7;</i>
                                 <cite>视频播放</cite>
                             </a>

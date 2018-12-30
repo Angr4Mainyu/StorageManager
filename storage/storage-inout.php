@@ -1,7 +1,36 @@
 <?php
+/*
+ * @Author: Angra Mainyu
+ * @Date: 2018-12-04 01:19:16
+ * @LastEditors: Angra Mainyu
+ * @LastEditTime: 2018-12-31 00:18:02
+ * @Description: file content
+ */
     include("../access/session.php");
     include("../db/db_config.php");
     include("../db/JSON.php");
+
+    function get_item_id($name){
+        $sql = "select id from goods where name = '$name';";
+        // echo $sql;
+        global $db;
+        $result = mysqli_query($db,$sql);
+        // var_dump($result);
+        if($result->num_rows == 0){
+            $sql = "select max(id)+1 as id from goods;";
+            $result = mysqli_query($db,$sql);
+            $row = mysqli_fetch_array($result);
+            $id = $row["id"];
+
+            $sql = "insert into goods values('$id','$name');";
+            $result = mysqli_query($db,$sql);
+            return $id;
+        }else{
+            $row = mysqli_fetch_array($result);
+            return $row["id"];
+        }
+
+    }
 
     function getTotal($sql){
         global $db;
@@ -64,11 +93,16 @@
         else {
             $ord_id = "oid";
         }
-
+        
         $date = date('Y-m-d');
         $time = date('H:i:s');
-
-        $sql = "update $table set $field = '$value',date = '$date',time = '$time' where $ord_id = '$data[$ord_id]';";
+        
+        if($field == "name"){
+            $new_id = get_item_id($value);
+            $sql = "update $table set $field = '$value',id = '$new_id',date = '$date',time = '$time' where $ord_id = '$data[$ord_id]';";
+        }else{
+            $sql = "update $table set $field = '$value',date = '$date',time = '$time' where $ord_id = '$data[$ord_id]';";
+        }
         return $sql;
     }
 
@@ -108,6 +142,16 @@
             }
             else{
                 $sql = $sql. " and name = '$name'";
+            }
+            $option += 1;
+        }
+        if(isset($_POST["id"])){
+            $id = $_POST["id"];
+            if($option == 0){
+                $sql = $sql. " where id = '$id'";
+            }
+            else{
+                $sql = $sql. " and id = '$id'";
             }
             $option += 1;
         }
@@ -191,6 +235,10 @@
                 else {
                     $sql = "select max(oid) from $table;";
                 }
+                break;
+            case 'get_item_id':
+                echo get_item_id($name);
+                exit(0);
                 break;
             default:
                 $sql = 'select * from input;';

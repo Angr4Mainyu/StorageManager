@@ -19,11 +19,22 @@
   <div class="layui-btn-container">
     <!-- <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button> -->
     <!-- <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button> -->
-    <button class="layui-btn layui-btn-sm layui-btn-disabled " lay-event="add" ><i class="layui-icon layui-icon-add-1"></i>添加</button>
+    <button class="layui-btn layui-btn-sm layui-btn-disabled layui-bg-blue" lay-event="add" ><i class="layui-icon layui-icon-add-1"></i>添加</button>
     <!-- <div class="layui-inline" lay-event="add"><i class="layui-icon layui-icon-add-1"></i></div> -->
     <!-- <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="delete">删除选中</button> -->
   </div>
 </script>
+    <div class="x-nav">
+        <span class="layui-breadcrumb" style="visibility: visible;">
+            <a href="">首页</a><span lay-separator="">/</span>
+            <a href="">仓储管理</a><span lay-separator="">/</span>
+            <a>
+                <cite>总库存表</cite></a>
+        </span>
+        <a class="layui-btn layui-btn-small layui-bg-blue" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);"
+            title="刷新">
+            <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i></a>
+    </div>
     <div class="layui-row">
         <form class="layui-form">
             <label class="layui-form-label layui-col-md1">ID</label>
@@ -34,13 +45,13 @@
             <div class="layui-input-inline layui-col-md1">
                 <input type="text" name="reload-name" id="reload-name" placeholder="请输入货物名" autocomplete="off" class="layui-input">
             </div>
-            <div class="layui-btn" data-type="reload" lay-filter="search"><i class="layui-icon">&#xe615;</i></div>
+            <div class="layui-btn layui-bg-blue" data-type="reload" lay-filter="search"><i class="layui-icon">&#xe615;</i></div>
         </form>
     </div>
     <table id="storage" lay-filter="storage" tablename="stock"></table>
 
     <script type="text/html" id="Headbar">
-        <a class="layui-btn layui-btn-xs layui-btn-disabled" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</a>
+        <a class="layui-btn layui-btn-xs layui-btn-disabled layui-bg-blue" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</a>
         <a class="layui-btn layui-btn-danger layui-btn-xs layui-btn-disabled" lay-event="del" ><i class="layui-icon layui-icon-delete"></i>删除</a>
         <!-- <div class="layui-inline" lay-event="del"></div> -->
     </script>

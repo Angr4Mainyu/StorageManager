@@ -1,3 +1,10 @@
+/*
+ * @Author: Angra Mainyu
+ * @Date: 2018-12-04 01:19:13
+ * @LastEditors: Angra Mainyu
+ * @LastEditTime: 2018-12-30 22:02:51
+ * @Description: file content
+ */
 $(function () {
     //加载弹出层
     layui.use(['form','element'],

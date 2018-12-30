@@ -1,3 +1,10 @@
+/*
+ * @Author: Angra Mainyu
+ * @Date: 2018-12-10 19:21:33
+ * @LastEditors: Angra Mainyu
+ * @LastEditTime: 2018-12-30 21:38:02
+ * @Description: file content
+ */
 /* 出入库系统使用的js函数 */
 layui.use(['table', 'laydate'], function () {
     var table = layui.table;
@@ -33,7 +40,7 @@ layui.use(['table', 'laydate'], function () {
             // , { field: 'id', title: 'ID', sort: true, edit: 'text' }
             , { field: 'price', title: '单价', sort: true, edit: 'text' }
             , { field: 'count', title: '数量', sort: true, edit: 'test', totalRow: true }
-            , { field: 'total', title: '总价', sort: true, totalRow: true}
+            , { field: 'total', title: '总价', sort: true, totalRow: true }
             , { field: 'manager', title: '经手人', edit: 'text' }
             , { field: 'date', title: '操作日期', sort: true }
             , { field: 'time', title: '操作时间', sort: true }
@@ -61,7 +68,10 @@ layui.use(['table', 'laydate'], function () {
                         // console.log(body.html()) //得到iframe页的body内容
                         //初始化表单数据的值
                         body.find("#edit-table").val(tableName);
-                    }
+                    },
+                    // end: function () {
+                    //     location.reload();
+                    // }
                 });
                 layer.msg('添加');
                 break;
@@ -175,6 +185,29 @@ layui.use(['table', 'laydate'], function () {
                         //初始化表单数据的值
                         body.find("#edit-iid").val(data['iid']); //要修改的每个td的值存为变量传进去
                         body.find("#edit-oid").val(data['oid']);
+                        // body.find("#edit-iid").defaultValue = data['iid'];
+                        body.find("#edit-name").val(data['name']);
+                        body.find("#edit-id").val(data['id']);
+                        body.find("#edit-price").val(data['price']);
+                        body.find("#edit-count").val(data['count']);
+                        body.find("#edit-total").val(data['total']);
+                        body.find("#edit-manager").val(data['manager']);
+                    }
+                });
+                break;
+            case 'view':
+                layer.open({
+                    title: '货物信息修改',
+                    type: 2,
+                    skin: 'layui-layer-rim', //加上边框
+                    area: ['50%', '70%'], //宽高
+                    content: 'item-view.html', //弹出的页面
+                    shadeClose: true, //点击遮罩关闭
+                    success: function (layero, index) {
+                        var body = layer.getChildFrame('body', index);
+                        // console.log(body.html()) //得到iframe页的body内容
+                        //初始化表单数据的值
+                        body.find("#edit-ord-id").val(data[ord_id]); //要修改的每个td的值存为变量传进去
                         // body.find("#edit-iid").defaultValue = data['iid'];
                         body.find("#edit-name").val(data['name']);
                         body.find("#edit-id").val(data['id']);

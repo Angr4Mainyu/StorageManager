@@ -1,3 +1,10 @@
+/*
+ * @Author: Angra Mainyu
+ * @Date: 2018-12-29 19:49:07
+ * @LastEditors: Angra Mainyu
+ * @LastEditTime: 2018-12-30 21:40:31
+ * @Description: file content
+ */
 /* 总库存系统使用的js函数 */
 layui.use(['table', 'laydate'], function () {
     var table = layui.table;
