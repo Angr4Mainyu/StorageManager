@@ -2,7 +2,7 @@
  * @Author: Angra Mainyu
  * @Date: 2018-12-10 19:21:33
  * @LastEditors: Angra Mainyu
- * @LastEditTime: 2018-12-30 21:38:02
+ * @LastEditTime: 2018-12-31 00:43:05
  * @Description: file content
  */
 /* 出入库系统使用的js函数 */
@@ -36,8 +36,8 @@ layui.use(['table', 'laydate'], function () {
         , cols: [[ //表头
             { type: 'checkbox', fixed: 'left' },
             { field: ord_id, title: '订单号', sort: true, totalRowText: '合计' }
+            , { field: 'id', title: '货物ID', sort: true }
             , { field: 'name', title: '货物名', sort: true, edit: 'text' }
-            // , { field: 'id', title: 'ID', sort: true, edit: 'text' }
             , { field: 'price', title: '单价', sort: true, edit: 'text' }
             , { field: 'count', title: '数量', sort: true, edit: 'test', totalRow: true }
             , { field: 'total', title: '总价', sort: true, totalRow: true }

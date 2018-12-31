@@ -3,7 +3,7 @@
  * @Author: Angra Mainyu
  * @Date: 2018-12-04 01:19:16
  * @LastEditors: Angra Mainyu
- * @LastEditTime: 2018-12-31 00:18:02
+ * @LastEditTime: 2018-12-31 00:44:39
  * @Description: file content
  */
     include("../access/session.php");
@@ -107,13 +107,15 @@
     }
 
     function select_item($table,$data){
-        $sql = "select * from $table";
         if($table == "input"){
             $ord_id = "iid";
+            $table = "show_input";
         }
         else {
             $ord_id = "oid";
+            $table = "show_output";
         }
+        $sql = "select * from $table";
 
         if(isset($_POST["iid"])){
             $iid = $_POST["iid"];
@@ -189,7 +191,6 @@
         if($table == "stock"){
             return $sql;
         }
-        $sql =   str_replace("*","$ord_id,name,count,price,manager,date,time,count*price as total",$sql);
         $sql = $sql. ";";
         return $sql;
     }
