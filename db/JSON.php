@@ -1,8 +1,7 @@
 <?php
-    function output($result,$total_count){
+    function output($result,$total_count,$msg){
         if(!$result){
             $code = 2;
-            $msg = "Operation Error";
             $n_rows = 0;
             $data = array();
         }

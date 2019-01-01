@@ -2,7 +2,7 @@
  * @Author: Angra Mainyu
  * @Date: 2018-12-10 19:21:33
  * @LastEditors: Angra Mainyu
- * @LastEditTime: 2018-12-31 00:43:05
+ * @LastEditTime: 2018-12-31 14:01:04
  * @Description: file content
  */
 /* 出入库系统使用的js函数 */
@@ -129,6 +129,17 @@ layui.use(['table', 'laydate'], function () {
         console.log(obj);
     });
 
+    function reloading() {
+        tableIns.reload({
+            where: {
+                token: 'secret',
+                action: 'select',
+                table: tableName,
+            }
+        });
+    }
+
+
     //监听单元格编辑
     table.on('edit(storage)', function (obj) {
         var value = obj.value //得到修改后的值
@@ -153,14 +164,11 @@ layui.use(['table', 'laydate'], function () {
                     if (res["code"] == 1) {
                         // 更新页面元素
                         layer.msg("编辑成功");
+                    }else{
+                        layer.msg(res["msg"])
                     }
-                    tableIns.reload({
-                        where: {
-                            token: 'secret',
-                            action: 'select',
-                            table: tableName,
-                        }
-                    });
+                    setTimeout("", 2000);
+                    reloading();
                 }
             );
         })
@@ -234,13 +242,7 @@ layui.use(['table', 'laydate'], function () {
                             res = JSON.parse(res);
                             if (res["code"] == 1) {
                                 // 更新页面元素,执行重载
-                                tableIns.reload({
-                                    where: {
-                                        token: 'secret',
-                                        action: 'select',
-                                        table: tableName,
-                                    }
-                                });
+                                setTimeout("reloding()", 2000);
                                 layer.msg("删除成功");
                             }
                             else {

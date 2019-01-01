@@ -3,7 +3,7 @@
  * @Author: Angra Mainyu
  * @Date: 2018-12-04 01:19:16
  * @LastEditors: Angra Mainyu
- * @LastEditTime: 2018-12-31 00:44:39
+ * @LastEditTime: 2018-12-31 13:37:46
  * @Description: file content
  */
     include("../access/session.php");
@@ -111,7 +111,7 @@
             $ord_id = "iid";
             $table = "show_input";
         }
-        else {
+        if($table == "output"){
             $ord_id = "oid";
             $table = "show_output";
         }
@@ -188,9 +188,6 @@
         }
 
         $sql = limit($sql);
-        if($table == "stock"){
-            return $sql;
-        }
         $sql = $sql. ";";
         return $sql;
     }
@@ -248,6 +245,11 @@
         // echo $sql;
         $result = mysqli_query($db,$sql);
         // var_dump($result);
-        echo output($result,$total_count);
+        if(!$result){
+            $msg = mysqli_error($db);
+        }else{
+            $msg = "Query success";
+        }
+        echo output($result,$total_count,$msg);
     }
 ?>
